@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game</title>
+    <style>
+        #clicker {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+        }
+
+        .upgrade-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .upgrade-button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div id="clicker">Click Me!</div>
+    <p>Clicks: <span id="clicks">0</span></p>
+    <button class="upgrade-button" onclick="buyClickUpgrade()">Buy Click Upgrade (Cost: <span id="upgradeCost">10</span>)</button>
+    <button class="upgrade-button" onclick="buyAutoClicker()">Buy Auto Clicker (Cost: <span id="autoClickerCost">50</span>)</button>
+
+    <script>
+        let clicks = 0;
+        let clickValue = 1;
+        let clickUpgradeCost = 10;
+        let autoClickers = 0;
+        let autoClickerCost = 50;
+
+        function updateClicks() {
+            document.getElementById('clicks').textContent = clicks;
+        }
+
+        function updateUpgradeCost() {
+            document.getElementById('upgradeCost').textContent = clickUpgradeCost;
+        }
+
+        function updateAutoClickerCost() {
+            document.getElementById('autoClickerCost').textContent = autoClickerCost;
+        }
+
+        function click() {
+            clicks += clickValue;
+            updateClicks();
+        }
+
+        function buyClickUpgrade() {
+            if (clicks >= clickUpgradeCost) {
+                clicks -= clickUpgradeCost;
+                clickValue++;
+                clickUpgradeCost *= 2;
+                updateClicks();
+                updateUpgradeCost();
+            } else {
+                alert("Insufficient clicks to purchase upgrade.");
+            }
+        }
+
+        function buyAutoClicker() {
+            if (clicks >= autoClickerCost) {
+                clicks -= autoClickerCost;
+                autoClickers++;
+                autoClickerCost *= 2;
+                updateClicks();
+                updateAutoClickerCost();
+                setInterval(autoClick, 1000);
+            } else {
+                alert("Insufficient clicks to purchase auto clicker.");
+            }
+        }
+
+        function autoClick() {
+            clicks += autoClickers * clickValue;
+            updateClicks();
+        }
+
+        document.getElementById('clicker').addEventListener('click', click);
+    </script>
+</body>
+</html>
