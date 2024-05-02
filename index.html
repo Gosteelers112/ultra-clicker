@@ -34,6 +34,22 @@
         #achievements {
             margin-top: 20px;
             font-size: 16px;
+            background-color: #f1c40f;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #achievementList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #achievementList li {
+            margin-bottom: 5px;
+        }
+
+        #achievementList li::before {
+            content: "🏆 ";
         }
     </style>
 </head>
@@ -45,7 +61,7 @@
     <button class="upgrade-button" onclick="buyAutoClicker()">Buy Auto Clicker (Cost: <span id="autoClickerCost">50</span>)</button>
 
     <div id="achievements">
-        <h2>Achievements</h2>
+        <h2>Achievements 🏆</h2>
         <ul id="achievementList">
             <!-- Achievements will be dynamically added here -->
         </ul>
