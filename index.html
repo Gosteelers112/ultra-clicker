@@ -1,3 +1,5 @@
+
+Copy code
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,13 +32,26 @@
         .upgrade-button:hover {
             background-color: #27ae60;
         }
+
+        #achievements {
+            margin-top: 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
     <div id="clicker">Click Me!</div>
     <p>Clicks: <span id="clicks">0</span></p>
+    <p>Time elapsed: <span id="timer">0</span> seconds</p>
     <button class="upgrade-button" onclick="buyClickUpgrade()">Buy Click Upgrade (Cost: <span id="upgradeCost">10</span>)</button>
     <button class="upgrade-button" onclick="buyAutoClicker()">Buy Auto Clicker (Cost: <span id="autoClickerCost">50</span>)</button>
+
+    <div id="achievements">
+        <h2>Achievements</h2>
+        <ul id="achievementList">
+            <!-- Achievements will be dynamically added here -->
+        </ul>
+    </div>
 
     <script>
         let clicks = 0;
@@ -44,6 +59,8 @@
         let clickUpgradeCost = 10;
         let autoClickers = 0;
         let autoClickerCost = 50;
+        let timer = 0;
+        let timerInterval;
 
         function updateClicks() {
             document.getElementById('clicks').textContent = clicks;
@@ -57,9 +74,14 @@
             document.getElementById('autoClickerCost').textContent = autoClickerCost;
         }
 
+        function updateTimer() {
+            document.getElementById('timer').textContent = timer;
+        }
+
         function click() {
             clicks += clickValue;
             updateClicks();
+            checkAchievements();
         }
 
         function buyClickUpgrade() {
@@ -90,11 +112,31 @@
         function autoClick() {
             clicks += autoClickers * clickValue;
             updateClicks();
+            checkAchievements();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                timer++;
+                updateTimer();
+            }, 1000);
+        }
+
+        function checkAchievements() {
+            if (clicks >= 100 && !document.getElementById('achievement-100-clicks')) {
+                let achievementList = document.getElementById('achievementList');
+                let achievement = document.createElement('li');
+                achievement.id = 'achievement-100-clicks';
+                achievement.textContent = 'Reached 100 clicks!';
+                achievementList.appendChild(achievement);
+            }
+            // Add more achievement conditions as needed
         }
 
         document.getElementById('clicker').addEventListener('click', click);
+        startTimer();
     </script>
-    
+
     <p>My galaxy username is dudeforlifez</p>
 </body>
 </html>
